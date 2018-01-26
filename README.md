@@ -12,18 +12,7 @@ Accesses Merriam Webster Dictionary API to determine number of syllables in a wo
 	- else, 
 		- add to dict of words to be looked up
 - use Merriam Webster Dictionary API to lookup remaining words.
-	- start with learning dictionary
-		- if found, 
-			- add (syllables *occurences) to total syllable account
-			- add word, syllable count to database
-		- else,
-			- try again with collegiete dictionary
-				- if found, 
-					- add (syllables *occurences) to total syllable account
-					- add word,syllable to database
-				- else,
-					- log unfindable word and number of occurences
-	- if over request limit, switch to collegiete dictionary
+	- Request using the collegiete dictionary
 		- if found, 
 			- add (syllables *occurences) to total syllable account
 			- add word, syllable count to database
