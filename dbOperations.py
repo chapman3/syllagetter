@@ -36,14 +36,16 @@ def get_syl(connection, word):
 				connection:	sqlite3 wordbank.db connection
 				sku:		word to be searched
 	Returns:
-				syllable count
+				syllable count if word found
+				None if word not found
 	'''
 	cursor = connection.cursor()
-	retVal = cursor.execute("SELECT * FROM wordbank WHERE word =?", (word,)).fetchall()
-	for val in retVal:
-		syl_count = int(val[1])
+	retVal = cursor.execute("SELECT syl_count FROM wordbank WHERE word =?", (word,)).fetchone()
 	cursor.close()
-	return syl_count
+	if retVal == None:
+		return None
+	else: 
+		return retVal[0]
 
 def add(connection, word, syl_count, log):
 	'''
@@ -99,6 +101,15 @@ def add_basic():
 	except Exception as e:
 		logfile.write("error adding basic word")
 
+def test():
+	connection = connect()
+	test_words = ["and","opposite","animalistic"]
+	print get_syl(connection, test_words[0]) == 1
+	print get_syl(connection, test_words[1]) == 3
+	print get_syl(connection, test_words[2]) == None
+
 if __name__ == "__main__":
-	init()
-	add_basic()
+	if init() > 0:
+		add_basic()
+	else:
+		test()
