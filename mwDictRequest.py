@@ -22,11 +22,14 @@ class mwDictRequest:
 	def request_helper(self, xml):
 		#used to parse response object
 		pr_start = xml.find("<pr>")
-		pr_end = xml.find("</pr>")
-		comma_check = pr_start + xml[pr_start:].find(",")
-		if comma_check < pr_start:
-			comma_check = pr_end
-		return xml[pr_start:min(comma_check,pr_end)].count("-") + 1
+		if pr_start > 0:
+			pr_end = xml.find("</pr>")
+			comma_check = pr_start + xml[pr_start:].find(",")
+			if comma_check < pr_start:
+				comma_check = pr_end
+			return xml[pr_start:min(comma_check,pr_end)].count("-") + 1
+		else:
+			return None
 
 def test():
 	req_obj = mwDictRequest()
