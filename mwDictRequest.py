@@ -2,17 +2,35 @@ import requests
 
 class mwDictRequest:
 	def __init__(self):
+		'''
+		mwDictRequest object constructor
+		'''
 		self.endpoint, self.key = self.load_settings()
 
 	def load_settings(self):
+		'''
+		Usage: 
+					loads a users desired endpoint and key value for making api requests
+		Args:
+					none
+		Returns:	
+					endpoint and key values for making api requests
+		'''
 		keyfile = open("key.txt","r")
 		endpoint = keyfile.readline().strip()
 		key = keyfile.readline().strip()
 		return endpoint, key
 
 	def make_request(self,word):
+		'''
+		Usage: 
+					makes an api request and returns number of syllables
+		Args:
+					word:	the word which is being requested
+		Returns:	
+					syl_count:	number of syllables in the requested word, or None if word not found
+		'''
 		#make request using endpoint and key, return pronunciation tag
-		#TO-DO: handle for "suggestions" when word not found
 		url = self.endpoint + word + "?key=" + self.key
 		r = requests.get(url)
 		xml = r.text
@@ -20,6 +38,15 @@ class mwDictRequest:
 		return syl_count
 
 	def request_helper(self, xml):
+		'''
+		Usage: 
+					used to parse results of the api request
+		Args:
+					xml:	text response from api request
+		Returns:	
+					if response indicates word found, syllable count
+					if response indicates word not found, None
+		'''
 		#used to parse response object
 		pr_start = xml.find("<pr>")
 		if pr_start > 0:
