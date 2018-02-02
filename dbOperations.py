@@ -1,6 +1,5 @@
 import sqlite3
 
-
 def init():
 	'''
 	Usage: 
@@ -8,7 +7,8 @@ def init():
 	Args:
 				none
 	Returns:	
-				none
+				1 if created
+				0 if already existed
 	'''
 	try:
 		print("Initialising Database")
@@ -31,7 +31,7 @@ def init():
 def get_syl(connection, word):
 	'''
 	Usage:
-				searchs database for a word, returns syllable count if found
+				searches database for a word, returns syllable count if found
 	Args:
 				connection:	sqlite3 wordbank.db connection
 				sku:		word to be searched
@@ -50,7 +50,7 @@ def get_syl(connection, word):
 def add(connection, word, syl_count, log):
 	'''
 	Usage: 
-				adds word,syl_count pairs to database
+				adds word, syl_count pairs to database
 	Args:		
 				connection:	sqlite3 wordbank.db connection
 				word:		word to be added
@@ -72,12 +72,13 @@ def add(connection, word, syl_count, log):
 def connect():
 	'''
 	Usage: 
-				connects to the wordbank.db file
+				attempts to create wordbank file and table, then connects to the wordbank.db file
 	Args:
 				none
 	Returns:	
 				database connection
 	'''
+	init()
 	connection = sqlite3.connect("wordbank.db")
 	return connection
 
@@ -104,9 +105,9 @@ def add_basic():
 def test():
 	connection = connect()
 	test_words = ["and","opposite","animalistic"]
-	print get_syl(connection, test_words[0]) == 1
-	print get_syl(connection, test_words[1]) == 3
-	print get_syl(connection, test_words[2]) == None
+	assert get_syl(connection, test_words[0]) == 1
+	assert get_syl(connection, test_words[1]) == 3
+	assert get_syl(connection, test_words[2]) == None
 
 if __name__ == "__main__":
 	if init() > 0:
