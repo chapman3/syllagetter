@@ -5,8 +5,14 @@ import collections
 class textParser:
 	def generate_dict(self, text):
 		'''
-		Given a body of text (HTML or otherwise),
-			returns an ordered dictionary of pairs in the format [word:num_occurences]
+		Usage: 
+					Given a body of text (HTML or otherwise),
+					returns an ordered dictionary of pairs in the format:
+						{word:num_occurences,..}
+		Args:
+					text:	the body of text to be parsed
+		Returns:	
+					words:	ordered dictionary of word,occurence pairs
 		'''
 		#strip html tags
 		no_html = re.sub('<.*?>', ' ', text)
@@ -29,7 +35,7 @@ class textParser:
 
 def test():
 	parser = textParser()
-	text = "<p>These are words!</p><ul><li>These-These These are list items.</li><li>And then, is this, another.. list item??</li></ul>And more words, and some symbols -> !@#$%^&*()"
+	text = "<p>These are words!</p><ul><li>And more words, and some symbols -> !@#$%^&*()</li></ul>"
 	words = parser.generate_dict(text)
 	for k, v in words.items():
 		print k, v
