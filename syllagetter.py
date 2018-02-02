@@ -4,12 +4,26 @@ import textParser
 
 class syllagetter:
 	def __init__(self, log):
+		'''
+		syllagetter object constructor
+		takes a log file as an argument to record results
+		'''
 		self.req_obj = mwDictRequest.mwDictRequest()
 		self.connection = dbOperations.connect()
 		self.text_parser = textParser.textParser()
 		self.log = log
 	
 	def get_syl_count(self, text):
+		'''
+		Usage: 
+					uses textParser mwDictRequest and dbOperations to 
+					calculate total syllable count of a body of text.
+		Args:
+					text:	text to get syllable count from
+		Returns:	
+					syl_count:	syllable count result from text block. 
+								log file will record results as well.
+		'''
 		self.log.write("====  NEW ENTRY  ====\n")
 		self.log.write("Full Text | " + text + "\n")
 		words = self.text_parser.generate_dict(text)
