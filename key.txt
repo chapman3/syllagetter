@@ -1,0 +1,2 @@
+https://www.dictionaryapi.com/api/v1/references/collegiate/xml/
+YOUR_API_KEY
