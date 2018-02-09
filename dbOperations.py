@@ -3,12 +3,12 @@ import sqlite3
 def init():
 	'''
 	Usage: 
-				creates the wordbank.db database
+			creates the wordbank.db database
 	Args:
-				none
+			none
 	Returns:	
-				1 if created
-				0 if already existed
+			1 if created
+			0 if already existed
 	'''
 	try:
 		print("Initialising Database")
@@ -50,14 +50,14 @@ def get_syl(connection, word):
 def add(connection, word, syl_count, log):
 	'''
 	Usage: 
-				adds word, syl_count pairs to database
+			adds word, syl_count pairs to database
 	Args:		
-				connection:	sqlite3 wordbank.db connection
-				word:		word to be added
-				syl_count:	syl_count to be associated to word
-				log:		logfile to record any errors
+			connection:	sqlite3 wordbank.db connection
+			word:		word to be added
+			syl_count:	syl_count to be associated to word
+			log:		logfile to record any errors
 	Returns:
-				none, updates database with new words
+			none, updates database with new words
 	'''
 	cursor = connection.cursor()
 	sql_command = "INSERT INTO wordbank (word, syl_count) VALUES (?, ?);"
@@ -72,24 +72,23 @@ def add(connection, word, syl_count, log):
 def connect():
 	'''
 	Usage: 
-				attempts to create wordbank file and table, then connects to the wordbank.db file
+			attempts to create wordbank file and table, then connects to the wordbank.db file
 	Args:
-				none
+			none
 	Returns:	
-				database connection
+			database connection
 	'''
-	init()
 	connection = sqlite3.connect("wordbank.db")
 	return connection
 
 def add_basic():
 	''' 
 	Usage: 
-				adds basic words to wordbank database
+			adds basic words to wordbank database
 	Args:
-				none
+			none
 	Returns:	
-				none, edits database in place
+			none, edits database in place
 	'''
 	basic_words = open("basicWords.txt", "r")
 	logfile = open("basic_log.txt", 'w')
