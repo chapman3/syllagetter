@@ -33,7 +33,7 @@ class syllagetter:
 			if db_check == None:
 				mw_check = self.req_obj.make_request(word)
 				if mw_check == None:
-					self.log.write("Word not found | " + word + " | occurences: " + occur + "\n")
+					self.log.write("Word not found | " + str(word) + " | occurences: " + str(occur) + "\n")
 				else:
 					dbOperations.add(self.connection, word, mw_check, self.log)
 					syl_count += mw_check * occur
